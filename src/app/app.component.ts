@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'MNG';
+  title='MNG'
+  pageTitle = 'MNG Product Management';
+  home='Home';
+  about='About';
+  product='Product'
 }

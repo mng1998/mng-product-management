@@ -1,0 +1,21 @@
+<div class="container pad">
+    <!-- Related Row -->
+    <h3 class="my-4">{{ pageTitle }}</h3>  
+    <div class="row">  
+      <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of products">
+        <a routerLink="/products/productdetail/{{product.id}}">
+              <!-- <img class="img-fluid" src="http://placehold.it/500x300" alt=""> -->
+              <img class="img" *ngIf="product.imageUrl"
+                     [src]="product.imageUrl"
+                     [title]="product.productName"
+                     [style.width.px]="imageWidth"
+                     [style.height.px]="imageHeight">
+              <h6 class="title" routerLink="/products/productdetail/{{product.id}}">{{product.productName }}</h6>
+              
+            </a>
+            <h6 class="price">{{product.price | currency:"USD":"symbol":"1.2-2"}}</h6>
+      </div>
+    </div>
+    <!-- /.row -->  
+  </div>
+  <!-- /.container -->

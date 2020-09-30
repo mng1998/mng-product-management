@@ -1,0 +1,26 @@
+  <div class="container pad">
+    <!-- Heading -->
+    <h1 class="my-4">{{ name }}
+      <small>{{ subtitle}}</small>
+    </h1>
+  
+    <!-- content -->
+    <div class="row">
+  
+      <div class="toppad col-md-6">
+        <img class="img-fluid" src="https://startinfinity.s3.us-east-2.amazonaws.com/t/L2rtmhCAyzk1yvyUrMd7I6DTi5Et4d1DdnEuNM2J.png" alt="">
+      </div>
+  
+      <div class="col-md-6">
+        <h3 class="my-3">{{ pageTitile }}</h3>
+        <h5 class="my-3">{{ intro }}</h5>
+        <p>{{ content }}</p>
+        <h5 class="my-3">{{ detail }}</h5>
+        <ul>
+          <li *ngFor="let eachdetail of details" [value]="eachdetail">{{ eachdetail }}</li>          
+        </ul>
+      </div>
+  
+    </div>
+    <!--end--> 
+  </div>

@@ -1,0 +1,22 @@
+.pad{
+    padding: 100px;
+}
+
+.img{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+.title{
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+
+.price{
+    text-align: center;
+    font-size: 16px;
+    color: brown;
+}
