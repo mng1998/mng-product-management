@@ -12,7 +12,7 @@ export class ProductData{
         starRating: 3.2,
         imageUrl: 'assets/images/product1.png',
         tags: ['toy', 'game'],
-        categoryId: 1,
+        categoryId: 3,
         quantityInStock: 15,
         supplierIds: [1, 2]
       },
@@ -25,7 +25,7 @@ export class ProductData{
         price: 32.99,
         starRating: 4.2,
         imageUrl: 'assets/images/product2.png',
-        categoryId: 1,
+        categoryId: 3,
         quantityInStock: 2,
         supplierIds: [3, 4]
       },
@@ -39,7 +39,7 @@ export class ProductData{
         starRating: 4.8,
         imageUrl: 'assets/images/product4.png',
         tags: ['tools', 'hammer', 'construction'],
-        categoryId: 3,
+        categoryId: 1,
         quantityInStock: 8,
         supplierIds: [5, 6]
       },

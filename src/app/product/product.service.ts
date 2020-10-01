@@ -5,7 +5,7 @@ import { combineLatest, Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { Product } from './product';
-import { ProductCategoryService } from '../product-categories/product-category.service';
+import { ProductCategoryService } from './product-categories/product-category.service';
 import { SupplierService } from '../suppliers/supplier.service';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class ProductService {
   );
 
   //Combine to map categoryId -> categoryName to display in template using combineLatest
-  productswithCategory$ = combineLatest([
+  productsWithCategory$ = combineLatest([
     this.products$,
     this.ProductCategoryService.productCategories$])
     .pipe(

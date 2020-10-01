@@ -9,7 +9,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import {  InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductComponent } from './product/product.component';
 import { TestComponent } from './test/test.component'
 import { ProductModule } from './product/product.module';

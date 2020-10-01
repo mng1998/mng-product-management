@@ -9,14 +9,13 @@
         
           <div class="col-md-4">
             <input class="form-control" type="text"
-            placeholder="Search here"
-                  [(ngModel)]="listFilter" />
+            placeholder="Search here"/>
           </div>
         <div class="col-md-4">
           <select class="form-control"
                   (change)="onSelected($event.target.value)">
             <option value="0">- Display All -</option>
-            <option *ngFor="let category of categories"
+            <option *ngFor="let category of categories$ | async"
                     [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
@@ -29,12 +28,11 @@
         </div>
       </div>
      
-      <div class="row"
-           *ngIf="listFilter">
+      <!-- <div class="row">
         <div class="col-md-6">
-          <h4>Filtered by: {{listFilter}}</h4>
+          <h4>Filtered by</h4>
         </div>
-      </div>
+      </div> -->
   
       <div class="table-responsive">
         <table class="table mb-0"

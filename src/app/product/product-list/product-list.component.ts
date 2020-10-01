@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { EMPTY } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, EMPTY } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { ProductCategoryService } from '../product-categories/product-category.service'
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent {
   pageTitle = 'Product List';
@@ -24,20 +26,46 @@ export class ProductListComponent {
   price= "Price";
   rate= "Rating";
   tags="Tags";
+  // products$ = this.productService.productswithCategory$
+  // .pipe(
+  //   catchError(err =>{
+  //     this.errorMessage =err;
+  //     return of([]);
+  //     return EMPTY;
+  //   })
+  // );
 
-  products$ = this.productService.productswithCategory$
-  .pipe(
-    catchError(err =>{
-      this.errorMessage =err;
-      //return of([]);
-      return EMPTY;
-    })
-  );
+  private categorySelectedSubject = new BehaviorSubject<number>(0);
+  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+
+  products$ = combineLatest([
+    this.productService.productsWithCategory$,
+    this.categorySelectedAction$
+  ])
+    .pipe(
+      map(([products, selectedCategoryId]) =>
+        products.filter(product =>
+          selectedCategoryId ? product.categoryId === selectedCategoryId : true
+        )),
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
+
+  categories$ = this.ProductCategoryService.productCategories$
+    .pipe(
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
 
   _listFilter = '';
   get listFilter(): string {
     return this._listFilter;
   }
+
   set listFilter(value: string) {
     this._listFilter = value;
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
@@ -47,7 +75,8 @@ export class ProductListComponent {
   products: Product[] = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private ProductCategoryService: ProductCategoryService
     ) { }
 
   performFilter(filterBy: string): Product[] {
@@ -61,6 +90,6 @@ export class ProductListComponent {
   }
 
   onSelected(categoryId: string): void {
-    console.log('Not yet implemented');
+    this.categorySelectedSubject.next(+categoryId);
   }
 }
