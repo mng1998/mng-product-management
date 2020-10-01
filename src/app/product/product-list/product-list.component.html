@@ -6,12 +6,21 @@
   
     <div class="card-body">
       <div class="row">
-        <div class="col-md-2">Filter by:</div>
+        
+          <div class="col-md-4">
+            <input class="form-control" type="text"
+            placeholder="Search here"
+                  [(ngModel)]="listFilter" />
+          </div>
         <div class="col-md-4">
-          <input type="text"
-                 [(ngModel)]="listFilter" />
+          <select class="form-control"
+                  (change)="onSelected($event.target.value)">
+            <option value="0">- Display All -</option>
+            <option *ngFor="let category of categories"
+                    [value]="category.id">{{ category.name }}</option>
+          </select>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
         <div class="col-md-2">
           <button class="btn-outline-primary"
                         [routerLink]="['/products/productlist/0/edit']">
@@ -29,12 +38,13 @@
   
       <div class="table-responsive">
         <table class="table mb-0"
-               *ngIf="products && products.length">
+               *ngIf="products$ | async as products">
           <thead>
             <tr>
               <th></th>
               <th>{{code}}</th>        
-              <th>{{name}}</th>              
+              <th>{{name}}</th>             
+              <th>Category</th> 
               <th>{{realseDate}}</th>
               <th>{{price}}</th>
               <th>{{rate}}</th>
@@ -42,7 +52,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of filteredProducts">       
+            <tr *ngFor="let product of products">       
               <td> <img class="img" *ngIf="product.imageUrl"
                 [src]="product.imageUrl"
                 [title]="product.productName"
@@ -54,6 +64,7 @@
                   {{ product.productName }}
                 </a>
               </td>
+              <td>{{ product.categoryName }}</td>
               <td>{{ product.releaseDate }}</td>
               <td>{{ product.price | currency:"USD":"symbol":"1.2-2" }}</td>
               <td>{{ product.starRating }}</td>
@@ -68,7 +79,6 @@
         </table>
       </div>
     </div>
-  </div>
 </div>
 
 <div *ngIf="errorMessage"

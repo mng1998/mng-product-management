@@ -1,11 +1,7 @@
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-
 import { Product } from './product';
 
-export class ProductData implements InMemoryDbService {
-
-  createDb() {
-    const products: Product[] = [
+export class ProductData{  
+    static products: Product[] = [
       {
         id: 1,
         productName: 'Robot',
@@ -15,7 +11,10 @@ export class ProductData implements InMemoryDbService {
         price: 19.95,
         starRating: 3.2,
         imageUrl: 'assets/images/product1.png',
-        tags: ['toy', 'game']
+        tags: ['toy', 'game'],
+        categoryId: 1,
+        quantityInStock: 15,
+        supplierIds: [1, 2]
       },
       {
         id: 2,
@@ -25,7 +24,10 @@ export class ProductData implements InMemoryDbService {
         description: '15 gallon capacity rolling garden cart',
         price: 32.99,
         starRating: 4.2,
-        imageUrl: 'assets/images/product2.png'
+        imageUrl: 'assets/images/product2.png',
+        categoryId: 1,
+        quantityInStock: 2,
+        supplierIds: [3, 4]
       },
       {
         id: 5,
@@ -36,7 +38,10 @@ export class ProductData implements InMemoryDbService {
         price: 8.9,
         starRating: 4.8,
         imageUrl: 'assets/images/product4.png',
-        tags: ['tools', 'hammer', 'construction']
+        tags: ['tools', 'hammer', 'construction'],
+        categoryId: 3,
+        quantityInStock: 8,
+        supplierIds: [5, 6]
       },
       {
         id: 8,
@@ -46,7 +51,10 @@ export class ProductData implements InMemoryDbService {
         description: '15-inch steel blade hand saw',
         price: 11.55,
         starRating: 3.7,
-        imageUrl: 'assets/images/product3.png'
+        imageUrl: 'assets/images/product3.png',
+        categoryId: 3,
+        quantityInStock: 6,
+        supplierIds: [7, 8]
       },
       {
         id: 10,
@@ -56,9 +64,10 @@ export class ProductData implements InMemoryDbService {
         description: 'Standard two-button video game controller',
         price: 35.95,
         starRating: 4.6,
-        imageUrl: 'assets/images/product5.png'
+        imageUrl: 'assets/images/product5.png',
+        categoryId: 5,
+        quantityInStock: 12,
+        supplierIds: [9, 10]
       }
     ];
-    return { products };
-  }
 }

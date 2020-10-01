@@ -22,6 +22,6 @@ export class HomeComponent implements OnInit {
 
   getProduct() : void{
     //arr.slice(begin, end)
-    this.productService.getProducts().subscribe(product => this.products = product.slice(1,5));
+    this.productService.getProductsDisplay().subscribe(product => this.products = product.slice(1,5));
   }
 }

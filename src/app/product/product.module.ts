@@ -17,7 +17,6 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(ProductData),
     RouterModule.forChild([
       { path: 'productlist', component: ProductListComponent },
       { path: 'productdetail/:id', component: ProductDetailComponent },

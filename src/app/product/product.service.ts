@@ -1,20 +1,47 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of, throwError } from 'rxjs';
+import { combineLatest, Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { Product } from './product';
+import { ProductCategoryService } from '../product-categories/product-category.service';
+import { SupplierService } from '../suppliers/supplier.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private productsUrl = 'api/products';
+  private suppliersUrl = this.supplierService.suppliersUrl;
 
-  constructor(private http: HttpClient) { }
+  products$ = this.http.get<Product[]>(this.productsUrl)
+  .pipe(
+    tap(data => console.log('Products: ', JSON.stringify(data))),
+    catchError(this.handleError)
+  );
 
-  getProducts(): Observable<Product[]> {
+  //Combine to map categoryId -> categoryName to display in template using combineLatest
+  productswithCategory$ = combineLatest([
+    this.products$,
+    this.ProductCategoryService.productCategories$])
+    .pipe(
+      map(([products, categories]) => 
+        products.map( product => ({
+        ...product,
+          price: product.price * 1.5,
+          categoryName: categories.find(c => product.categoryId === c.id).name,
+          searchKey: [product.productName],
+        }) as Product)
+      ),
+      tap(data => console.log('Products: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  constructor(private http: HttpClient,
+              private ProductCategoryService: ProductCategoryService,
+              private supplierService: SupplierService) { }
+
+  getProductsDisplay(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productsUrl)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
@@ -22,7 +49,7 @@ export class ProductService {
       );
   }
 
-  getProduct(id: number): Observable<Product> {
+  getProductById(id: number): Observable<Product> {
     if (id === 0) {
       return of(this.initializeProduct());
     }

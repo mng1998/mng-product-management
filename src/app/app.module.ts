@@ -9,11 +9,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductComponent } from './product/product.component';
 import { TestComponent } from './test/test.component'
 import { ProductModule } from './product/product.module';
 import { ProductData } from './product/product-data';
+import { AppData } from './app-data';
 //import { ProductListComponent} from './product/product-list/product-list.component'
 
 @NgModule({
@@ -31,9 +32,7 @@ import { ProductData } from './product/product-data';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      ProductData, { dataEncapsulation: false }
-    ),
+    InMemoryWebApiModule.forRoot(AppData, { delay: 1000 }),
     ProductModule
     
   ],
