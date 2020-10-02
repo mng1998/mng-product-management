@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { combineLatest, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { Product } from './product';
@@ -15,6 +15,7 @@ export class ProductService {
   private productsUrl = 'api/products';
   private suppliersUrl = this.supplierService.suppliersUrl;
 
+  // Get product data from API
   products$ = this.http.get<Product[]>(this.productsUrl)
   .pipe(
     tap(data => console.log('Products: ', JSON.stringify(data))),
@@ -37,10 +38,29 @@ export class ProductService {
       tap(data => console.log('Products: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
+  
+  private productSelectedSubject = new BehaviorSubject<number>(0);
+  productSelectedAction$ = this.productSelectedSubject.asObservable();
+
+  // Select a product 
+  selectedProduct$ = combineLatest([this.productsWithCategory$, this.productSelectedAction$])
+  .pipe(
+    map(([products, selectedProductId]) =>
+      products.find(product => product.id === selectedProductId)
+    ),
+    tap(product => console.log('selectedProduct', product))
+  );
+
   constructor(private http: HttpClient,
               private ProductCategoryService: ProductCategoryService,
               private supplierService: SupplierService) { }
 
+  //Selected product to display product detail
+   selectedProductChanged(selectedProductId: number): void {
+    this.productSelectedSubject.next(selectedProductId);
+  }
+
+  // Get product data to display on HomePage
   getProductsDisplay(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productsUrl)
       .pipe(
@@ -49,6 +69,7 @@ export class ProductService {
       );
   }
 
+  //Get product by productId
   getProductById(id: number): Observable<Product> {
     if (id === 0) {
       return of(this.initializeProduct());
@@ -61,6 +82,7 @@ export class ProductService {
       );
   }
 
+  // Add a new product
   createProduct(product: Product): Observable<Product> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     product.id = null;
@@ -71,6 +93,7 @@ export class ProductService {
       );
   }
 
+  // Delete a new product
   deleteProduct(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productsUrl}/${id}`;
@@ -81,6 +104,7 @@ export class ProductService {
       );
   }
 
+  // Update a new product
   updateProduct(product: Product): Observable<Product> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productsUrl}/${product.id}`;
@@ -93,6 +117,7 @@ export class ProductService {
       );
   }
 
+  // Handle error
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console

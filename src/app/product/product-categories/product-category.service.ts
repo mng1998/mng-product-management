@@ -12,6 +12,7 @@ import { ProductCategory } from './product-category';
 export class ProductCategoryService {
   private productCategoriesUrl = 'api/productCategories';
 
+  // Get category data from API
   productCategories$ = this.http.get<ProductCategory[]>(this.productCategoriesUrl)
   .pipe(
     tap( data => console.log('categories', JSON.stringify(data))),

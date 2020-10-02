@@ -1,0 +1,159 @@
+<!-- <div class='row'>
+    <div class='col-md-4'>
+        <div class="card">
+            <div class="card-header productHeader">
+              {{pageTitle}}
+            </div>  
+            <div class='card-body'
+                 *ngIf="products$ | async as products">
+              <div class='list-group'>
+                <button type='button'
+                        class='list-group-item'
+                        *ngFor='let product of products'
+                        [ngClass]="{'active': product?.id === selectedProductId}"
+                        (click)='onSelected(product.id)'>
+                  {{ product.productName }} ({{ product.categoryName }})
+                </button>
+              </div>
+            </div>
+          </div>  
+    </div>
+
+    <div class='col-md-8'>
+        <div class="card"
+     *ngIf="productDetail$ | async as product">
+  <div class="card-header productHeader">
+    {{detailTitle + product.productName}}
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-2">Name</div>
+      <div class="col-md-6">{{product.productName}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Code</div>
+      <div class="col-md-6">{{product.productCode}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Category</div>
+      <div class="col-md-6">{{product.categoryName}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Description</div>
+      <div class="col-md-6">{{product.description}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Price</div>
+      <div class="col-md-6">{{product.price|currency:"USD":"symbol"}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">In Stock</div>
+      <div class="col-md-6">{{product.quantityInStock}}</div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table mb-0"
+             *ngIf="productSuppliers">
+        <thead>
+          <tr>
+            <th>Supplier</th>
+            <th>Cost</th>
+            <th>Minimum Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let supplier of productSuppliers">
+            <td>{{ supplier.name }} </td>
+            <td>{{ supplier.cost | currency:"USD":"symbol":"1.2-2" }}</td>
+            <td>{{ supplier.minQuantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+    </div>
+</div>  -->
+
+<div class='row'>
+    <div class='col-md-4'>
+        <app-product-list-alt></app-product-list-alt>
+    </div>
+    <div class='col-md-8'>    
+      <div class="card" *ngIf="productDetail$ | async as product">
+    <div class="card-header productHeader">
+      {{detailTitle + product.productName}}
+    </div>
+
+<div class="card-body">
+  <div class="row">
+  
+    <div class="col-md-8">
+      <div class="row">
+        <div class="element col-md-3">{{ name }}</div>
+        <div class="col-md-9">{{product.productName}}</div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ code }}</div>
+        <div class="col-md-9">{{product.productCode}}</div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ description }}</div>
+        <div class="col-md-9">{{product.description}}</div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ realseDate }}</div>
+        <div class="col-md-9">{{product.releaseDate}}</div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ price }}</div>
+        <div class="col-md-9">{{product.price|currency:"USD":"symbol"}}</div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ rate }}</div>
+        <div class="col-md-9">    
+          {{product.starRating}}         
+        </div>
+      </div>
+      <div class="row">
+        <div class="element col-md-3">{{ tags }}</div>
+        <div class="col-md-9">{{product.tags}}</div>
+      </div>
+    </div>
+
+    <div class="col-md-4"
+         *ngIf="product.imageUrl">
+      <img class="center-block img-responsive"
+           [style.height.px]="150"
+           [style.margin.px]="2"
+           [src]="product.imageUrl"
+           [title]="product.productName">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table mb-0"
+            *ngIf="productSuppliers">
+      <thead>
+        <tr>
+          <th>Supplier</th>
+          <th>Cost</th>
+          <th>Minimum Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplier of productSuppliers">
+          <td>{{ supplier.name }} </td>
+          <td>{{ supplier.cost | currency:"USD":"symbol":"1.2-2" }}</td>
+          <td>{{ supplier.minQuantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+      </div>
+</div>

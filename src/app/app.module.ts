@@ -33,8 +33,7 @@ import { AppData } from './app-data';
     AppRoutingModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(AppData, { delay: 1000 }),
-    ProductModule
-    
+    ProductModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
