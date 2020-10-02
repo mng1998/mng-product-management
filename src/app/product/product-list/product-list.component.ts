@@ -26,6 +26,7 @@ export class ProductListComponent {
   price= "Price";
   rate= "Rating";
   tags="Tags";
+
   // products$ = this.productService.productswithCategory$
   // .pipe(
   //   catchError(err =>{
@@ -61,15 +62,15 @@ export class ProductListComponent {
       })
     );
 
-  _listFilter = '';
-  get listFilter(): string {
-    return this._listFilter;
-  }
+  // _listFilter = '';
+  // get listFilter(): string {
+  //   return this._listFilter;
+  // }
 
-  set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
-  }
+  // set listFilter(value: string) {
+  //   this._listFilter = value;
+  //   this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  // }
 
   filteredProducts: Product[] = [];
   products: Product[] = [];

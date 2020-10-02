@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProductData } from './product-data';
 import { ProductEditGuard } from './product-edit/product-edit.guard';
+import { ProductListAltComponent } from './product-list-alt/product-list-alt.component';
 
 @NgModule({
   
@@ -20,17 +21,20 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
     RouterModule.forChild([
       { path: 'productlist', component: ProductListComponent },
       { path: 'productdetail/:id', component: ProductDetailComponent },
+      
       {
         path: 'productlist/:id/edit',
         canDeactivate: [ProductEditGuard],
         component: ProductEditComponent
-      }
+      },
+      { path: 'productalt', component: ProductListAltComponent }
     ])
   ],
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductListAltComponent
     
   ],
 })
