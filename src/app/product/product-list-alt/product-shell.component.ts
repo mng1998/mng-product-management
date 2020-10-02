@@ -25,6 +25,15 @@ export class ProductShellComponent {
       return EMPTY;
     })
   );
+
+  productSuppliers$ = this.productService.selectedProductSuppliers$
+  .pipe(
+    catchError(err => {
+      this.errorMessage= err;
+      return EMPTY;
+    })
+  );
+  
   
   constructor (private productService: ProductService) {}
 }

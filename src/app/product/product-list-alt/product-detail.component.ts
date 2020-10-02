@@ -22,5 +22,14 @@ import { ProductService } from '../product.service';
     })
   );
   
+  productSupliers$ = this.productService.selectedProductSupplier$
+  .pipe(
+    catchError(err => {
+      this.errorMessage= err;
+      return EMPTY;
+    })
+  );
+  
+
   constructor (private productService: ProductService) {}
   }
