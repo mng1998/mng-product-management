@@ -10,5 +10,6 @@ export class AppComponent {
   pageTitle = 'MNG Product Management';
   home='Home';
   about='About';
-  product='Product'
+  product='Product';
+  menu = 'Menu'
 }
